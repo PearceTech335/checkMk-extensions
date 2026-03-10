@@ -74,13 +74,7 @@ def discover_multiple_function(section):
             print(f"Truly Exceptional: {e}")
             continue
 
-#This function is the meat in the check sandwich and the logic behind for threshold notifications
-#Take the variable assigned in your 'parse' function, do whatever manipulations you want and 'yield' your results to the service
-#for OK, WARN, CRIT thresholds you have to yield a status based on each condition
-#HINT: try and give the check functions logical names so that when a check is registered it is easy to track what function is running
-#inside what service. eg, there no point having check_test and function_test - if you are polling the RSSI from a radio, name the check
-#something sensible like check_rssi and the function something like wlan_rssi_check. So that when you do multiple services in a single .py 
-#you dont end up with an anuerism trying to debug it when it gets big.
+
 def check_wlan_0(section):
     # Add custom check logic here
     noise_floor_thresh = -90
