@@ -61,13 +61,13 @@ def _parse_health(string_table: List[StringTable]) -> Dict[str, Any]:
         results["rf_in_errors"]       = int(row[7])
         results["rf_out_discards"]    = int(row[8])
         results["rf_out_errors"]      = int(row[9])
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in _parse_health (BoxStatus): {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return partial results if parsing fails
 
     try:
         results["channel_bw"] = string_table[1][0][0]
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in _parse_health (BoxConfig): {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return partial results if parsing fails
 
     return results
 
