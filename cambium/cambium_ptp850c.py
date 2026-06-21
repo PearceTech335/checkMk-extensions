@@ -20,6 +20,7 @@ _PTP850_DETECT = any_of(
     contains(_SYS_DESCR_OID, "PTP 850"),
     contains(_SYS_DESCR_OID, "IP-50C"),
     contains(_SYS_DESCR_OID, "IP-50E"),
+    contains(_SYS_DESCR_OID, "Wambo"),
 )
 
 

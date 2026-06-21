@@ -58,6 +58,8 @@ The plugins use the following Cambium MIB files (included in `PM450 25.0.1 MIBS.
 
 ### PTP 850C (`cambium_ptp850c.py`)
 
+Supported devices: PTP 850, IP-50C, IP-50E, and Wambo series radios.
+
 | Service Name                 | Description                                                           | Alert Thresholds                                      |
 |-----------------------------|-----------------------------------------------------------------------|-------------------------------------------------------|
 | PTP850C RSL                | Local/remote RSL, baseline degradation, interval min/max RSL           | WARN degradation > 3 dB from baseline, CRIT > 6 dB   |
