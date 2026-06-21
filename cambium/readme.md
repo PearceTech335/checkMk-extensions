@@ -55,3 +55,18 @@ The plugins use the following Cambium MIB files (included in `PM450 25.0.1 MIBS.
 - `WHISP-APS-MIB.txt` – AP frame utilisation, GPS, SM count, frequency
 - `WHISP-SM-MIB.txt`  – SM RSSI, CINR/SNR, registration status
 - `WHISP-BOX-MIBV2-MIB.txt` – CPU, temperature, error counters, channel bandwidth
+
+### PTP 850C (`cambium_ptp850c.py`)
+
+| Service Name                 | Description                                                           | Alert Thresholds                                      |
+|-----------------------------|-----------------------------------------------------------------------|-------------------------------------------------------|
+| PTP850C RSL                | Local/remote RSL, baseline degradation, interval min/max RSL           | WARN degradation > 3 dB from baseline, CRIT > 6 dB   |
+| PTP850C Adaptive Modulation| Current TX/RX QAM vs max profile QAM                                  | WARN when current QAM is below max design profile     |
+| PTP850C Link Availability  | Remote link state plus ES/SES/UAS counters                            | CRIT when link state reports down                     |
+| PTP850C Ethernet Errors    | Summed IF-MIB `ifInErrors/ifOutErrors/ifInDiscards/ifOutDiscards`     | WARN if any Ethernet errors are present               |
+| PTP850C Temperature        | RFU and IDU temperatures                                               | WARN ≥ 70 °C, CRIT ≥ 80 °C                            |
+| PTP850C Power Input        | IDU input voltage                                                      | WARN outside 40–60 V                                  |
+| PTP850C XPIC               | XPIC enablement indicator                                              | Informational (enabled/disabled)                      |
+| PTP850C Alarm Summary      | Most severe system alarm integer level                                | WARN at 3-4, CRIT at 5+                               |
+
+PTP 850C OIDs are sourced from `PTP 850 MIB_Reference_13.0_Rev_S.zip` (notably `MWRM-RADIO-MIB`, `MWRM-PM-MIB`, `MWRM-UNIT-MIB`, and IF-MIB objects).
