@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from cmk.agent_based.v2 import (
     CheckPlugin,
     CheckResult,
@@ -23,7 +23,7 @@ _PTP850_DETECT = any_of(
 )
 
 
-def _safe_int(value: Any) -> int | None:
+def _safe_int(value: Any) -> Optional[int]:
     try:
         return int(str(value).strip())
     except (ValueError, TypeError, AttributeError):
@@ -68,8 +68,8 @@ def _parse_ptp850c(string_table: List[StringTable]) -> Dict[str, Any]:
         results["qam_rx_current"] = _safe_int(qam_curr_row[1])
 
     # [5] MRMC profile table - max TX/RX QAM across profiles
-    max_tx_qam: int | None = None
-    max_rx_qam: int | None = None
+    max_tx_qam: Optional[int] = None
+    max_rx_qam: Optional[int] = None
     for row in string_table[5] if len(string_table) > 5 else []:
         tx_qam = _safe_int(row[0]) if len(row) > 0 else None
         rx_qam = _safe_int(row[1]) if len(row) > 1 else None
