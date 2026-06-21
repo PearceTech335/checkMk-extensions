@@ -35,7 +35,7 @@ def _parse_ap_target_rssi(string_table: StringTable) -> Dict[str, Any]:
     try:
         results["target"] = float(string_table[0][0])
     except (IndexError, ValueError, TypeError):
-        pass  # Return empty dict if parsing fails
+        pass  # Return empty or partial results if parsing fails
     return results
 
 snmp_section_pmp450i_ap = SimpleSNMPSection(
