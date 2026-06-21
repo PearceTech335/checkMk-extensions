@@ -34,8 +34,8 @@ def _parse_ap_target_rssi(string_table: StringTable) -> Dict[str, Any]:
     results: Dict[str, Any] = {}
     try:
         results["target"] = float(string_table[0][0])
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in parse_ap_target_rssi: {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return empty or partial results if parsing fails
     return results
 
 snmp_section_pmp450i_ap = SimpleSNMPSection(
@@ -58,7 +58,7 @@ def _check_target_sm_rssi(section: Dict[str, Any]) -> CheckResult:
     if target is None:
         yield Result(state=State.UNKNOWN, summary="Target RSSI data unavailable")
         return
-    yield Result(state=State.OK, summary=f"{target} dBi")
+    yield Result(state=State.OK, summary=f"{target} dBm")
 
 check_plugin_target_sm_rssi = CheckPlugin(
     name="pmp450i_target_sm_rssi",
@@ -105,8 +105,8 @@ def _parse_ap_extended(string_table: List[StringTable]) -> Dict[str, Any]:
         if tgps and tgps[0]:
             results["gps_sync_int"] = int(tgps[0][0])
 
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in _parse_ap_extended: {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return partial results if parsing fails
     return results
 
 snmp_section_pmp450i_ap_extended = SNMPSection(

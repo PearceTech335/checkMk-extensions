@@ -43,8 +43,8 @@ def _parse_rssi(string_table: StringTable) -> Dict[str, Any]:
         results["max_power"]   = float(string_table[0][3])
         results["h_pol"]       = float(string_table[0][4])
         results["v_pol"]       = float(string_table[0][5])
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in _parse_rssi: {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return partial results if parsing fails
     return results
 
 snmp_section_pmp450i_sm = SimpleSNMPSection(
@@ -173,8 +173,8 @@ def _parse_sm_extended(string_table: StringTable) -> Dict[str, Any]:
         results["rssi_int"]       = int(row[1])
         results["snr_vertical"]   = int(row[2])
         results["snr_horizontal"] = int(row[3])
-    except (IndexError, ValueError, TypeError) as e:
-        print(f"Error in _parse_sm_extended: {e}")
+    except (IndexError, ValueError, TypeError):
+        pass  # Return partial results if parsing fails
     return results
 
 snmp_section_pmp450i_sm_extended = SimpleSNMPSection(
