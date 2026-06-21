@@ -30,7 +30,7 @@ def _safe_int(value: Any) -> Optional[int]:
         return None
 
 
-def _first_row(table: StringTable) -> list[str]:
+def _first_row(table: StringTable) -> List[str]:
     return table[0] if table and table[0] else []
 
 
@@ -157,21 +157,21 @@ def _check_rsl(section: Dict[str, Any]) -> CheckResult:
         yield Result(state=State.UNKNOWN, summary="Local RSL unavailable")
         return
 
-    drop = (local_ref - local_rsl) if local_ref is not None else None
-    if drop is None:
+    degradation = max(0, local_ref - local_rsl) if local_ref is not None else None
+    if degradation is None:
         state = State.OK
-        drop_txt = "n/a"
-    elif drop > 6:
+        deviation_txt = "n/a"
+    elif degradation > 6:
         state = State.CRIT
-        drop_txt = f"{drop} dB (Critical >6 dB)"
-    elif drop > 3:
+        deviation_txt = f"{degradation} dB (Critical >6 dB)"
+    elif degradation > 3:
         state = State.WARN
-        drop_txt = f"{drop} dB (Warning >3 dB)"
+        deviation_txt = f"{degradation} dB (Warning >3 dB)"
     else:
         state = State.OK
-        drop_txt = f"{drop} dB"
+        deviation_txt = f"{degradation} dB"
 
-    parts = [f"Local RSL {local_rsl} dBm", f"Deviation {drop_txt}"]
+    parts = [f"Local RSL {local_rsl} dBm", f"Degradation vs baseline {deviation_txt}"]
     if local_ref is not None:
         parts.append(f"Local baseline {local_ref} dBm")
     if remote_rsl is not None:

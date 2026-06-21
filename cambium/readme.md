@@ -60,7 +60,7 @@ The plugins use the following Cambium MIB files (included in `PM450 25.0.1 MIBS.
 
 | Service Name                 | Description                                                           | Alert Thresholds                                      |
 |-----------------------------|-----------------------------------------------------------------------|-------------------------------------------------------|
-| PTP850C RSL                | Local/remote RSL, baseline deviation, interval min/max RSL            | WARN drop > 3 dB from baseline, CRIT drop > 6 dB     |
+| PTP850C RSL                | Local/remote RSL, baseline degradation, interval min/max RSL           | WARN degradation > 3 dB from baseline, CRIT > 6 dB   |
 | PTP850C Adaptive Modulation| Current TX/RX QAM vs max profile QAM                                  | WARN when current QAM is below max design profile     |
 | PTP850C Link Availability  | Remote link state plus ES/SES/UAS counters                            | CRIT when link state reports down                     |
 | PTP850C Ethernet Errors    | Summed IF-MIB `ifInErrors/ifOutErrors/ifInDiscards/ifOutDiscards`     | WARN if any Ethernet errors are present               |
