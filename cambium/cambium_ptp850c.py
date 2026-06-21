@@ -157,6 +157,7 @@ def _check_rsl(section: Dict[str, Any]) -> CheckResult:
         yield Result(state=State.UNKNOWN, summary="Local RSL unavailable")
         return
 
+    # Degradation only: weaker (more negative) RSL than baseline.
     degradation = max(0, local_ref - local_rsl) if local_ref is not None else None
     if degradation is None:
         state = State.OK
@@ -226,7 +227,7 @@ def _check_link_availability(section: Dict[str, Any]) -> CheckResult:
         status = "Link state: down"
     else:
         state = State.WARN
-        status = f"Link state: {remote_comm}"
+        status = f"Link state: unknown ({remote_comm})"
 
     kpi = []
     if es is not None:
@@ -314,7 +315,8 @@ def _check_alarm(section: Dict[str, Any]) -> CheckResult:
         yield Result(state=State.UNKNOWN, summary="Alarm severity unavailable")
         return
 
-    # Vendor severity is integer-coded and model-dependent; map conservatively.
+    # Vendor severity is integer-coded and model-dependent; mapped conservatively:
+    # 0-2 OK, 3-4 WARN, 5+ CRIT.
     if severity >= 5:
         state = State.CRIT
     elif severity >= 3:
