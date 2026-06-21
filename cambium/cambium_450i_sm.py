@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Any, Dict, List
+from typing import Any, Dict
 from cmk.agent_based.v2 import (
     CheckPlugin,
     CheckResult,
